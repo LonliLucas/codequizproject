@@ -10,49 +10,43 @@ var choiceBElement = document.querySelector('#choiceB');
 var choiceCElement = document.querySelector('#choiceC');
 var choiceDElement = document.querySelector('#choiceD');
 var quizEnd = document.querySelector(".quiz-end");
+var countdownStart;
 
 timer.textContent = countdown
 
 var questions = [
     {
-        question: 'How old are you?',
-        choiceA: '10',
-        choiceB: '11',
-        choiceC: '5',
-        choiceD: '8',
+        question: 'What is Javascript?',
+        choiceA: 'A scripting language for Websites.',
+        choiceB: 'An API.',
+        choiceC: 'A stylesheet for Websites.',
+        choiceD: 'A strange animal from space.',
         correctAnswer: 'A'
     },
     {
-        question: 'How dumb are you?',
-        choiceA: '1',
-        choiceB: '2',
-        choiceC: '3',
-        choiceD: '4',
+        question: 'What is a String in Javascript?',
+        choiceA: 'Multiple Variables.',
+        choiceB: 'A Jquery command.',
+        choiceC: 'Stored text in a Variable.',
+        choiceD: 'A trail of letters.',
         correctAnswer: 'C'
     },
     {
-        question: 'Did you do the thing',
-        choiceA: 'Fuck',
-        choiceB: 'You',
-        choiceC: 'Dumb',
-        choiceD: 'Bitch',
+        question: 'What is an Array in Javascript?',
+        choiceA: 'A set of functions.',
+        choiceB: 'How you call a function',
+        choiceC: 'Just another type of Variable.',
+        choiceD: 'A list containing multiple data types, starting from 0.',
         correctAnswer: 'D'
     }
 ];
 
-let aQuestion = questions[0]; // 
-let aChoice = aQuestion.choiceA;
-let bChoice = aQuestion.choiceB;
-let cChoice = aQuestion.choiceC;
-let dChoice = aQuestion.choiceD;
-
 function startTimer() {
-    var countdownStart = setInterval(function counter() {
+    countdownStart = setInterval(function counter() {
         countdown--
         timer.textContent = countdown
         if (countdown < 1) {
             clearInterval(countdownStart);
-            endQuiz();
         }
     }, 1000)
 
@@ -100,7 +94,7 @@ function biteMe(choice) {
     console.log("bitten");
 
     if (choice === questions[questionIndex].correctAnswer) {
-        console.log("Smite Me");
+        console.log("Correct");
         if (questionIndex < 2) {
             questionIndex++;
             renderQuestion();
@@ -134,18 +128,11 @@ function startQuiz() {
     // hide start button
     hideElement(startBtn);
     
-    if(quizEnd) {
+    
         hideElement(quizEnd);
-    }
+    
     // show quiz section
     showElement(quizSection);
-
-    // addEventlistener on click for each choice
-    // for (i = 0; i < 4; i++) {
-    //     choiceNum = ["A", "B", "C", "D"];
-
-
-    // }
 
 
     choiceAElement.addEventListener("click", function () {
@@ -161,10 +148,6 @@ function startQuiz() {
         biteMe("D");
     });
 
-    // only add eventListener once
-    // how to check which answer was clicked
-    // which answer is correct
-
     renderQuestion();
 }
 
@@ -172,7 +155,8 @@ function endQuiz() {
     hideElement(quizSection);
     showElement(quizEnd);
     showElement(startBtn);
-
+    clearInterval(countdownStart);
+    timer.textContent = countdown
 }
 
 startBtn.addEventListener("click", startQuiz);
